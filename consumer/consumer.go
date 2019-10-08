@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"time"
 
 	kafka "github.com/segmentio/kafka-go"
 )
@@ -32,15 +31,14 @@ func main() {
 	for {
 
 		// создайм объект контекста с таймаутом в 1 секунд для чтения сообщений
-		ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-		defer cancel()
+		// ctx, cancel := context.With(context.Background(), 10*time.Second)
+		// defer cancel()
 
 		// читаем очередное сообщение из очереди
 		// поскольку вызов блокирующий - передаём контекст с таймаутом
-		m, err := r.ReadMessage(ctx)
+		m, err := r.ReadMessage(context.Background())
 		if err != nil {
 			fmt.Println(err)
-			break
 		}
 		log.Println("recieved:", string(m.Value))
 	}
