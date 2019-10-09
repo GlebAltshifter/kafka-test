@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	kafka "github.com/segmentio/kafka-go"
@@ -38,7 +37,7 @@ func main() {
 		// поскольку вызов блокирующий - передаём контекст с таймаутом
 		m, err := r.ReadMessage(context.Background())
 		if err != nil {
-			fmt.Println(err)
+			log.Println(err)
 		}
 		log.Println("recieved:", string(m.Value))
 	}
